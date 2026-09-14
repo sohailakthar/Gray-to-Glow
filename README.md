@@ -48,10 +48,12 @@ UI behavior:
 - A "Processing..." loader appears while the models run; when finished a centered slideshow is shown.
 - The slideshow shows three images (Original, ECCV16, SIGGRAPH17). ECCV16 is centered by default. Use the Prev/Next buttons or thumbnails to switch.
 - Outputs are written to `imgs_out/`.
-- Each result includes its mean CIEDE2000 color difference and a similarity score
-  from 0 to 100. CIEDE2000 is a perceptual metric where lower difference is
-  better; the displayed score is `max(0, 100 - mean CIEDE2000)`, so an exact
-  color match scores 100.
+- Each result includes mean CIEDE2000 color difference, MSE, PSNR, SSIM, and a
+  similarity score from 0 to 100. CIEDE2000 and MSE are error metrics where
+  lower is better. PSNR and SSIM are quality metrics where higher is better.
+  The displayed similarity score is `max(0, 100 - mean CIEDE2000)`, so an exact
+  color match scores 100. PSNR is reported in dB and uses RGB values normalized
+  to the 0-1 range.
 
 File naming (new behavior):
 - If you upload `photo.jpg`, outputs are saved as:
