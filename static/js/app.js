@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function(){
   const thumbs = document.getElementById('thumbs');
   const thumbEls = document.querySelectorAll('.thumb');
   const btn = document.getElementById('colorizeBtn');
+  const scores = document.getElementById('scores');
 
   let images = []; // urls in order: original, eccv, sig
   let idx = 1; // start with ECCV16 in center
@@ -20,11 +21,13 @@ document.addEventListener('DOMContentLoaded', function(){
   function showCarousel(){
     carouselContainer.classList.remove('hidden');
     thumbs.classList.remove('hidden');
+    scores.classList.remove('hidden');
   }
 
   function hideCarousel(){
     carouselContainer.classList.add('hidden');
     thumbs.classList.add('hidden');
+    scores.classList.add('hidden');
   }
 
   function updateView(){
@@ -73,6 +76,10 @@ document.addEventListener('DOMContentLoaded', function(){
         btn.disabled = false;
         if(data.success){
           images = [data.orig_url, data.eccv_url, data.sig_url];
+          document.getElementById('eccvScore').textContent = data.scores.eccv16.similarity_score.toFixed(2);
+          document.getElementById('eccvDelta').textContent = 'Mean CIEDE2000: ' + data.scores.eccv16.mean_delta_e.toFixed(4);
+          document.getElementById('sigScore').textContent = data.scores.siggraph17.similarity_score.toFixed(2);
+          document.getElementById('sigDelta').textContent = 'Mean CIEDE2000: ' + data.scores.siggraph17.mean_delta_e.toFixed(4);
           // populate thumbs
           document.getElementById('thumb0').src = images[0] + '?t=' + Date.now();
           document.getElementById('thumb1').src = images[1] + '?t=' + Date.now();

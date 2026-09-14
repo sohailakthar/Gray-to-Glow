@@ -9,7 +9,7 @@
   <body>
     <div class="container">
       <h1>Gray-to-Glow</h1>
-      <p class="lead">Upload a grayscale image and click colorize.</p>
+      <p class="lead">Upload a colored image to convert it to grayscale and evaluate both colorization models.</p>
 
       <form id="uploadForm">
         <input type="file" id="imageInput" name="image" accept="image/*">
@@ -34,6 +34,23 @@
         <img id="thumb1" class="thumb" src="" data-index="1" alt="eccv thumb">
         <img id="thumb2" class="thumb" src="" data-index="2" alt="sig thumb">
       </div>
+
+      <section id="scores" class="hidden scores" aria-live="polite">
+        <h2>Colorization evaluation</h2>
+        <p class="score-help">CIEDE2000 measures perceptual color difference; lower error and higher similarity are better.</p>
+        <div class="score-grid">
+          <article class="score-card">
+            <h3>ECCV16</h3>
+            <p><strong id="eccvScore">-</strong><span>/100 similarity</span></p>
+            <small id="eccvDelta">Mean CIEDE2000: -</small>
+          </article>
+          <article class="score-card">
+            <h3>SIGGRAPH17</h3>
+            <p><strong id="sigScore">-</strong><span>/100 similarity</span></p>
+            <small id="sigDelta">Mean CIEDE2000: -</small>
+          </article>
+        </div>
+      </section>
 
     </div>
     <footer>

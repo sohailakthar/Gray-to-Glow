@@ -11,6 +11,7 @@ import torch
 from colorizers.eccv16 import eccv16
 from colorizers.siggraph17 import siggraph17
 from colorizers.util import load_img, preprocess_img, postprocess_tens
+from colorizers.evaluation import evaluate_colorization
 
 # configuration
 UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'imgs')
@@ -59,7 +60,18 @@ def colorize_image(input_path, save_prefix):
         plt.imsave(out_s, out_img_siggraph17)
         plt.imsave(out_o, img)
 
-        return (os.path.basename(out_o), os.path.basename(out_e), os.path.basename(out_s))
+        eccv_score = evaluate_colorization(img, out_img_eccv16)
+        siggraph_score = evaluate_colorization(img, out_img_siggraph17)
+
+        return {
+            'original': os.path.basename(out_o),
+            'eccv16': os.path.basename(out_e),
+            'siggraph17': os.path.basename(out_s),
+            'scores': {
+                'eccv16': eccv_score,
+                'siggraph17': siggraph_score,
+            },
+        }
     except Exception as e:
         traceback.print_exc()
         raise
@@ -86,13 +98,14 @@ def upload():
 
         try:
             out_prefix = base_name
-            orig_name, eccv_name, sig_name = colorize_image(upload_path, out_prefix)
+            result = colorize_image(upload_path, out_prefix)
             # return URLs for the client to fetch
             return jsonify({
                 'success': True,
-                'orig_url': f"/output/{orig_name}",
-                'eccv_url': f"/output/{eccv_name}",
-                'sig_url': f"/output/{sig_name}"
+                'orig_url': f"/output/{result['original']}",
+                'eccv_url': f"/output/{result['eccv16']}",
+                'sig_url': f"/output/{result['siggraph17']}",
+                'scores': result['scores'],
             })
         except Exception as e:
             return jsonify({'success': False, 'error': str(e)}), 500
