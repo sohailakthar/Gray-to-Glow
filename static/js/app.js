@@ -107,6 +107,6 @@ document.addEventListener('DOMContentLoaded', function(){
     return 'CIEDE2000: ' + metrics.mean_delta_e.toFixed(4) +
       '<br>MSE: ' + metrics.mse.toFixed(8) +
       '<br>PSNR: ' + psnr +
-      '<br>SSIM: ' + metrics.ssim.toFixed(4);
+      '<br>SSIM: ' + metrics.ssim.toFixed(2) + '%';
   }
 });

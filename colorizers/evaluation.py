@@ -19,8 +19,9 @@ def evaluate_colorization(original_rgb, colorized_rgb):
     """Compare two aligned RGB images using several image-quality metrics.
 
     CIEDE2000 and MSE are error metrics where lower is better. PSNR and SSIM
-    are quality metrics where higher is better. The reported similarity score
-    is a convenient 0-100 presentation metric:
+    are quality metrics where higher is better. SSIM is returned as a
+    percentage from 0 to 100. The reported similarity score is a convenient
+    0-100 presentation metric:
     an exact match scores 100, and every unit of mean CIEDE2000 error reduces
     the score by one point. Scores are clamped at zero.
     """
@@ -55,5 +56,5 @@ def evaluate_colorization(original_rgb, colorized_rgb):
         "similarity_score": round(max(0.0, 100.0 - mean_delta_e), 2),
         "mse": round(mse, 8),
         "psnr": None if np.isinf(psnr) else round(psnr, 4),
-        "ssim": round(ssim, 4),
+        "ssim": round(ssim * 100.0, 2),
     }

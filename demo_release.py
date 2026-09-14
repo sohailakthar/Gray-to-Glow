@@ -35,8 +35,8 @@ siggraph_score = evaluate_colorization(img, out_img_siggraph17)
 
 plt.imsave('%s_eccv16.png'%opt.save_prefix, out_img_eccv16)
 plt.imsave('%s_siggraph17.png'%opt.save_prefix, out_img_siggraph17)
-print('ECCV16: CIEDE2000={mean_delta_e:.4f}, MSE={mse:.8f}, PSNR={psnr}, SSIM={ssim:.4f}, similarity={similarity_score:.2f}/100'.format(**eccv_score))
-print('SIGGRAPH17: CIEDE2000={mean_delta_e:.4f}, MSE={mse:.8f}, PSNR={psnr}, SSIM={ssim:.4f}, similarity={similarity_score:.2f}/100'.format(**siggraph_score))
+print('ECCV16: CIEDE2000={mean_delta_e:.4f}, MSE={mse:.8f}, PSNR={psnr}, SSIM={ssim:.2f}%, similarity={similarity_score:.2f}/100'.format(**eccv_score))
+print('SIGGRAPH17: CIEDE2000={mean_delta_e:.4f}, MSE={mse:.8f}, PSNR={psnr}, SSIM={ssim:.2f}%, similarity={similarity_score:.2f}/100'.format(**siggraph_score))
 
 plt.figure(figsize=(12,8))
 plt.subplot(2,2,1)

@@ -51,9 +51,10 @@ UI behavior:
 - Each result includes mean CIEDE2000 color difference, MSE, PSNR, SSIM, and a
   similarity score from 0 to 100. CIEDE2000 and MSE are error metrics where
   lower is better. PSNR and SSIM are quality metrics where higher is better.
-  The displayed similarity score is `max(0, 100 - mean CIEDE2000)`, so an exact
-  color match scores 100. PSNR is reported in dB and uses RGB values normalized
-  to the 0-1 range.
+  SSIM is displayed as a percentage (for example, `0.9055` is returned as
+  `90.55%`). The displayed similarity score is
+  `max(0, 100 - mean CIEDE2000)`, so an exact color match scores 100. PSNR is
+  reported in dB and uses RGB values normalized to the 0-1 range.
 
 File naming (new behavior):
 - If you upload `photo.jpg`, outputs are saved as:
