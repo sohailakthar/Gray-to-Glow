@@ -37,17 +37,17 @@
 
       <section id="scores" class="hidden scores" aria-live="polite">
         <h2>Colorization evaluation</h2>
-        <p class="score-help">CIEDE2000 measures perceptual color difference; lower error and higher similarity are better.</p>
+        <p class="score-help">CIEDE2000 and MSE are errors (lower is better). PSNR, SSIM, and similarity are quality scores (higher is better).</p>
         <div class="score-grid">
           <article class="score-card">
             <h3>ECCV16</h3>
             <p><strong id="eccvScore">-</strong><span>/100 similarity</span></p>
-            <small id="eccvDelta">Mean CIEDE2000: -</small>
+            <small id="eccvMetrics">CIEDE2000: -<br>MSE: -<br>PSNR: - dB<br>SSIM: -</small>
           </article>
           <article class="score-card">
             <h3>SIGGRAPH17</h3>
             <p><strong id="sigScore">-</strong><span>/100 similarity</span></p>
-            <small id="sigDelta">Mean CIEDE2000: -</small>
+            <small id="sigMetrics">CIEDE2000: -<br>MSE: -<br>PSNR: - dB<br>SSIM: -</small>
           </article>
         </div>
       </section>

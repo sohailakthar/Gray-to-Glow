@@ -76,10 +76,12 @@ document.addEventListener('DOMContentLoaded', function(){
         btn.disabled = false;
         if(data.success){
           images = [data.orig_url, data.eccv_url, data.sig_url];
-          document.getElementById('eccvScore').textContent = data.scores.eccv16.similarity_score.toFixed(2);
-          document.getElementById('eccvDelta').textContent = 'Mean CIEDE2000: ' + data.scores.eccv16.mean_delta_e.toFixed(4);
-          document.getElementById('sigScore').textContent = data.scores.siggraph17.similarity_score.toFixed(2);
-          document.getElementById('sigDelta').textContent = 'Mean CIEDE2000: ' + data.scores.siggraph17.mean_delta_e.toFixed(4);
+          const eccvMetrics = data.scores.eccv16;
+          const siggraphMetrics = data.scores.siggraph17;
+          document.getElementById('eccvScore').textContent = eccvMetrics.similarity_score.toFixed(2);
+          document.getElementById('eccvMetrics').innerHTML = formatMetrics(eccvMetrics);
+          document.getElementById('sigScore').textContent = siggraphMetrics.similarity_score.toFixed(2);
+          document.getElementById('sigMetrics').innerHTML = formatMetrics(siggraphMetrics);
           // populate thumbs
           document.getElementById('thumb0').src = images[0] + '?t=' + Date.now();
           document.getElementById('thumb1').src = images[1] + '?t=' + Date.now();
@@ -99,4 +101,12 @@ document.addEventListener('DOMContentLoaded', function(){
         console.error(err);
       });
   });
+
+  function formatMetrics(metrics){
+    const psnr = metrics.psnr === null ? '∞' : metrics.psnr.toFixed(4) + ' dB';
+    return 'CIEDE2000: ' + metrics.mean_delta_e.toFixed(4) +
+      '<br>MSE: ' + metrics.mse.toFixed(8) +
+      '<br>PSNR: ' + psnr +
+      '<br>SSIM: ' + metrics.ssim.toFixed(4);
+  }
 });
